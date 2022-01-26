@@ -69,11 +69,15 @@ Module Program
                                                 Console.Write(" ")
 
                                             Else
-                                                    Console.Write(item.Around)
+                                                Console.Write(item.Around)
                                             End If
 
                                             Return False
                                         End Function)
+
+        Console.WriteLine()
+        Console.WriteLine()
+        Console.Write("Enter location i.e b,5")
     End Sub
 
 
