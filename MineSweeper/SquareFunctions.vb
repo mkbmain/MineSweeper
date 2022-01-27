@@ -1,7 +1,7 @@
 ﻿Module SquareFunctions
     Private Random As Random = New Random(Guid.NewGuid().GetHashCode())
 
-    Public Sub PlaceMines(ByVal map As Square()(), ByVal numberOfMines As Integer)
+    Public Sub PlaceMines(ByVal map As Square()(), numberOfMines As Integer)
         Dim total As Integer = map.Select(Function(t)
                                               Return t.Length
                                           End Function).Sum()
@@ -16,7 +16,7 @@
     End Sub
 
 
-    Private Sub PlaceMine(ByVal map As Square()(), Optional ByVal count As Integer = 0)
+    Private Sub PlaceMine(map As Square()(), Optional count As Integer = 0)
         If count > 3 Then
             map.IterateThroughArrayOfArrays(Function(e)
                                                 If e.Mine = False Then
@@ -57,7 +57,7 @@
         Return missedMine = False And wrongMine = False
 
     End Function
-    Public Sub CountMineForSquare(map As Square()(), ByVal x As Integer, ByVal y As Integer)
+    Public Sub CountMineForSquare(map As Square()(), x As Integer, y As Integer)
 
         If map(x)(y).Around IsNot Nothing Then
             ' we have already solved this

@@ -16,7 +16,7 @@ Module Program
 
 
 
-    Sub DrawMap(ByVal map As Square()())
+    Sub DrawMap(map As Square()())
         Console.Clear()
         Enumerable.Range(0, _MapSize).Select(Function(e)
                                                  Console.SetCursorPosition(e + 1, 0)
