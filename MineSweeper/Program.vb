@@ -1,15 +1,15 @@
 Imports System
 
 Module Program
-    Private ShowMines As Boolean = False
-    Private Const _NumberOfMines As Integer = 20
-    Private Const _MapSize As Integer = 9
-    Private Alphabet As List(Of Char) = "abcdefghijklmnopqrstuvwxyz".ToCharArray().ToList()
-    Private Map As Square()() = Enumerable.Range(0, _MapSize).Select(Function(x)
-                                                                         Return Enumerable.Range(0, _MapSize).Select(Function(y)
-                                                                                                                         Return New Square(False)
-                                                                                                                     End Function).ToArray()
-                                                                     End Function).ToArray()
+    Private _showMines As Boolean = False
+    Private Const NumberOfMines As Integer = 20
+    Private Const MapSize As Integer = 9
+    Private ReadOnly Alphabet As List(Of Char) = "abcdefghijklmnopqrstuvwxyz".ToCharArray().ToList()
+    Private ReadOnly Map As Square()() = Enumerable.Range(0, MapSize).Select(Function(x)
+                                                                                 Return Enumerable.Range(0, MapSize).Select(Function(y)
+                                                                                                                                Return New Square(False)
+                                                                                                                            End Function).ToArray()
+                                                                             End Function).ToArray()
 
 
 
@@ -18,17 +18,17 @@ Module Program
 
     Sub DrawMap(map As Square()())
         Console.Clear()
-        Enumerable.Range(0, _MapSize).Select(Function(e)
-                                                 Console.SetCursorPosition(e + 1, 0)
-                                                 Console.Write(e)
-                                                 Console.SetCursorPosition(0, e + 1)
-                                                 Console.Write(Alphabet(e))
-                                                 Return True
-                                             End Function).ToArray()
+        Enumerable.Range(0, MapSize).Select(Function(e)
+                                                Console.SetCursorPosition(e + 1, 0)
+                                                Console.Write(e)
+                                                Console.SetCursorPosition(0, e + 1)
+                                                Console.Write(Alphabet(e))
+                                                Return True
+                                            End Function).ToArray()
         map.IterateThroughArrayOfArrays(Function(item, x, y)
                                             Console.SetCursorPosition(x + 1, y + 1)
 
-                                            If ShowMines And item.Mine And item.Flag = False Then
+                                            If _showMines And item.Mine And item.Flag = False Then
                                                 Console.Write("*")
                                             End If
 
@@ -52,7 +52,7 @@ Module Program
 
 
     Sub Main(args As String())
-        PlaceMines(Map, _NumberOfMines)
+        PlaceMines(Map, NumberOfMines)
         Dim message As String = ""
         While True
             DrawMap(Map)
@@ -80,7 +80,7 @@ Module Program
             ElseIf y < 0 Or y > Map(x).Length - 1 Then
                 message = "Invalid y pos"
             ElseIf Map(x)(y).Mine And flag = False Then
-                ShowMines = True
+                _showMines = True
                 DrawMap(Map)
                 Console.WriteLine("Game Over! Mine")
                 Return
