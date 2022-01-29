@@ -5,11 +5,11 @@ Module Program
     Private Const NumberOfMines As Integer = 20
     Private Const MapSize As Integer = 9
     Private ReadOnly Alphabet As List(Of Char) = "abcdefghijklmnopqrstuvwxyz".ToCharArray().ToList()
-    Private ReadOnly Map As Square()() = Enumerable.Range(0, MapSize).Select(Function(x)
-                                                                                 Return Enumerable.Range(0, MapSize).Select(Function(y)
-                                                                                                                                Return New Square(False)
-                                                                                                                            End Function).ToArray()
-                                                                             End Function).ToArray()
+    Private ReadOnly SquareMap As Square()() = Enumerable.Range(0, MapSize).Select(Function(x)
+                                                                                       Return Enumerable.Range(0, MapSize).Select(Function(y)
+                                                                                                                                      Return New Square(False)
+                                                                                                                                  End Function).ToArray()
+                                                                                   End Function).ToArray()
 
 
 
@@ -52,10 +52,10 @@ Module Program
 
 
     Sub Main(args As String())
-        PlaceMines(Map, NumberOfMines)
+        PlaceMines(SquareMap, NumberOfMines)
         Dim message As String = ""
         While True
-            DrawMap(Map)
+            DrawMap(SquareMap)
             Console.WriteLine(message)
             Console.Write("Enter location:")
             message = ""
@@ -75,29 +75,29 @@ Module Program
                 Continue While
             End If
 
-            If x < 0 Or x > Map.Length - 1 Then
+            If x < 0 Or x > SquareMap.Length - 1 Then
                 message = "Invalid x pos"
-            ElseIf y < 0 Or y > Map(x).Length - 1 Then
+            ElseIf y < 0 Or y > SquareMap(x).Length - 1 Then
                 message = "Invalid y pos"
-            ElseIf Map(x)(y).Mine And flag = False Then
+            ElseIf SquareMap(x)(y).Mine And flag = False Then
                 _showMines = True
-                DrawMap(Map)
+                DrawMap(SquareMap)
                 Console.WriteLine("Game Over! Mine")
                 Return
             Else
                 If flag Then
-                    If Map(x)(y).Around Is Nothing Then
-                        Map(x)(y).Flag = True
+                    If SquareMap(x)(y).Around Is Nothing Then
+                        SquareMap(x)(y).Flag = True
                     Else
                         message = "Invalid flag move"
                         Continue While
                     End If
 
                 Else
-                    SquareFunctions.CountMineForSquare(Map, x, y)
+                    SquareFunctions.CountMineForSquare(SquareMap, x, y)
                 End If
 
-                If SquareFunctions.WonGame(Map) Then
+                If SquareFunctions.WonGame(SquareMap) Then
                     Console.WriteLine("Game Over! you win")
                     Return
                 End If
