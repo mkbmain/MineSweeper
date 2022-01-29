@@ -2,7 +2,7 @@ Imports System
 
 Module Program
     Private ShowMines As Boolean = False
-
+    Private Const _NumberOfMines As Integer = 20
     Private Const _MapSize As Integer = 9
     Private Alphabet As List(Of Char) = "abcdefghijklmnopqrstuvwxyz".ToCharArray().ToList()
     Private Map As Square()() = Enumerable.Range(0, _MapSize).Select(Function(x)
@@ -52,7 +52,7 @@ Module Program
 
 
     Sub Main(args As String())
-        PlaceMines(Map, 20)
+        PlaceMines(Map, _NumberOfMines)
         Dim message As String = ""
         While True
             DrawMap(Map)
