@@ -40,21 +40,13 @@
 
     Public Function WonGame(map As Square()()) As Boolean
 
-        Dim allSquares As IEnumerable(Of Square) = map.SelectMany(Function(e)
-                                                                      Return e.Select(Function(b)
-                                                                                          Return b
-                                                                                      End Function)
-                                                                  End Function)
-
-        Dim missedMine As Boolean = allSquares.Where(Function(e)
-                                                         Return e.Mine = True And e.Flag = False
-                                                     End Function).Any()
-
-        Dim wrongMine As Boolean = allSquares.Where(Function(e)
-                                                        Return e.Mine = False And e.Flag = True
-                                                    End Function).Any()
-
-        Return missedMine = False And wrongMine = False
+        Return map.SelectMany(Function(e)
+                                  Return e.Select(Function(b)
+                                                      Return b
+                                                  End Function)
+                              End Function).Where(Function(e)
+                                                      Return (e.Mine = True And e.Flag = False) Or (e.Mine = False And e.Flag = True)
+                                                  End Function).Any() = False
 
     End Function
     Public Sub CountMineForSquare(map As Square()(), x As Integer, y As Integer)
