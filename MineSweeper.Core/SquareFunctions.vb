@@ -1,4 +1,5 @@
 ﻿Public Module SquareFunctions
+    ' I know there is the secruity RNG 
     Private Random As Random = New Random(Guid.NewGuid().GetHashCode())
 
     Public Function GenerateMap(xSize As Integer, ySize As Integer) As Square()()
@@ -68,13 +69,7 @@
 
         For Each xpos In {x - 1, x, x + 1}
             For Each ypos In {y - 1, y, y + 1}
-                If xpos < 0 Or ypos < 0 Then
-                    Continue For
-                End If
-                If xpos > map.Length - 1 Then
-                    Continue For
-                End If
-                If ypos > map(xpos).Length - 1 Then
+                If xpos < 0 Or ypos < 0 Or xpos > map.Length - 1 Or ypos > map(xpos).Length - 1 Then
                     Continue For
                 End If
 
