@@ -1,6 +1,6 @@
 ﻿Imports System.Runtime.CompilerServices
 
-Module IterateExtensions
+Public Module IterateExtensions
     <Extension()>
     Public Sub IterateThroughArrayOfArrays(Of T)(arrayOfArrays As T()(), action As Action(Of T))
         arrayOfArrays.IterateThroughArrayOfArrays(Function(e)

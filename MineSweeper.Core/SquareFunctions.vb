@@ -1,5 +1,13 @@
-﻿Module SquareFunctions
+﻿Public Module SquareFunctions
     Private Random As Random = New Random(Guid.NewGuid().GetHashCode())
+
+    Public Function GenerateMap(xSize As Integer, ySize As Integer) As Square()()
+        Return Enumerable.Range(0, xSize).Select(Function(x)
+                                                     Return Enumerable.Range(0, ySize).Select(Function(y)
+                                                                                                  Return New Square(False)
+                                                                                              End Function).ToArray()
+                                                 End Function).ToArray()
+    End Function
 
     Public Sub PlaceMines(ByVal map As Square()(), numberOfMines As Integer)
         Dim total As Integer = map.Select(Function(t)
