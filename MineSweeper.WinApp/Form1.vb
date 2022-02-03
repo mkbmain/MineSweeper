@@ -5,7 +5,7 @@ Public Class Form1
     Private ShowMines As Boolean = False
     Private Const _SizeOfSquareLabel As Integer = 35
     Private Const _MapSize As Integer = 9
-    Private Const _NumberOfMines As Integer = 1
+    Private Const _NumberOfMines As Integer = 20
 
     Private Map As Square()()
     Private Labels As List(Of SquareLabel) = New List(Of SquareLabel)
@@ -73,8 +73,6 @@ Public Class Form1
                     label.BackColor = Color.Red
                     label.Square.Flag = True
                 End If
-
-
         End Select
 
         If WonGame(Map) Then
