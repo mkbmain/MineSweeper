@@ -84,7 +84,7 @@ Module Program
             Else
                 If flag Then
                     If SquareMap(x)(y).Around Is Nothing Then
-                        SquareMap(x)(y).Flag = True
+                        SquareMap(x)(y).Flag = Not SquareMap(x)(y).Flag
                     Else
                         message = "Invalid flag move"
                         Continue While

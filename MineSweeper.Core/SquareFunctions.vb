@@ -69,7 +69,11 @@
 
         For Each xpos In {x - 1, x, x + 1}
             For Each ypos In {y - 1, y, y + 1}
-                If xpos < 0 Or ypos < 0 Or xpos > map.Length - 1 Or ypos > map(xpos).Length - 1 Then
+                If xpos < 0 Or ypos < 0 Then
+                    Continue For
+                ElseIf xpos > map.Length - 1 Then
+                    Continue For
+                ElseIf ypos > map(xpos).Length - 1 Then
                     Continue For
                 End If
 

@@ -5,7 +5,7 @@ Public Class Form1
     Private ShowMines As Boolean = False
     Private Const _SizeOfSquareLabel As Integer = 35
     Private Const _MapSize As Integer = 9
-    Private Const _NumberOfMines As Integer = 20
+    Private Const _NumberOfMines As Integer = 1
 
     Private Map As Square()()
     Private Labels As List(Of SquareLabel) = New List(Of SquareLabel)
@@ -66,9 +66,14 @@ Public Class Form1
                 If label.Square.Around IsNot Nothing Then
                     Return
                 End If
+                If label.Square.Flag = True Then
+                    label.BackColor = Me.BackColor
+                    label.Square.Flag = False
+                Else
+                    label.BackColor = Color.Red
+                    label.Square.Flag = True
+                End If
 
-                label.BackColor = Color.Red
-                label.Square.Flag = True
 
         End Select
 
