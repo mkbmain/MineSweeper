@@ -2,7 +2,7 @@
 
 Public Class Form1
 
-    Private ShowMines As Boolean = True
+    Private ShowMines As Boolean = False
     Private Const _SizeOfSquareLabel As Integer = 35
     Private Const _MapSize As Integer = 9
     Private Const _NumberOfMines As Integer = 20
@@ -61,6 +61,14 @@ Public Class Form1
                     CountMineForSquare(Map, label.SquareLocation.X, label.SquareLocation.Y)
                     label.Text = label.Square.Around
                     label.Square.Flag = False
+                    If label.Square.Around = 0 Then
+                        For Each label In Labels
+                            If label.Square.Around IsNot Nothing Then
+                                label.Text = label.Square.Around
+                            End If
+
+                        Next
+                    End If
                 End If
             Case MouseButtons.Right
                 If label.Square.Around IsNot Nothing Then

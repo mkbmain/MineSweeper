@@ -66,7 +66,25 @@
         End If
 
         Dim mines As Integer = 0
+        IterateThroughNeighbourMapSquares(map, x, y, Sub(xpos, ypos)
+                                                         If map(xpos)(ypos).Mine Then
+                                                             mines += 1
+                                                         End If
+                                                     End Sub)
 
+        map(x)(y).Flag = False
+        map(x)(y).Around = mines
+        If mines = 0 Then
+            IterateThroughNeighbourMapSquares(map, x, y, Sub(xpos, ypos)
+                                                             CountMineForSquare(map, xpos, ypos)
+                                                         End Sub)
+        End If
+
+
+    End Sub
+
+
+    Private Sub IterateThroughNeighbourMapSquares(map As Square()(), x As Integer, y As Integer, action As Action(Of Integer, Integer))
         For Each xpos In {x - 1, x, x + 1}
             For Each ypos In {y - 1, y, y + 1}
                 If xpos < 0 Or ypos < 0 Then
@@ -76,14 +94,8 @@
                 ElseIf ypos > map(xpos).Length - 1 Then
                     Continue For
                 End If
-
-                If map(xpos)(ypos).Mine Then
-                    mines += 1
-                End If
+                action(xpos, ypos)
             Next
         Next
-
-        map(x)(y).Flag = False
-        map(x)(y).Around = mines
     End Sub
 End Module
