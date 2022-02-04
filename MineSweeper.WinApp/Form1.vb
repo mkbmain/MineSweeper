@@ -58,15 +58,15 @@ Public Class Form1
                     MessageBox.Show("GameOver Mine Landed On")
                     ResetGame()
                 ElseIf label.Square.Around Is Nothing Then
+                    label.Square.Flag = False
                     CountMineForSquare(Map, label.SquareLocation.X, label.SquareLocation.Y)
                     label.Text = label.Square.Around
-                    label.Square.Flag = False
+
                     If label.Square.Around = 0 Then
                         For Each label In Labels
                             If label.Square.Around IsNot Nothing Then
                                 label.Text = label.Square.Around
                             End If
-
                         Next
                     End If
                 End If
