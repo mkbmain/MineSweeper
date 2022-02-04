@@ -25,7 +25,7 @@ Module Program
         map.IterateThroughArrayOfArrays(Function(item, x, y)
                                             Console.SetCursorPosition(x + 1, y + 1)
 
-                                            If _showMines And item.Mine And item.Flag = False Then
+                                            If _showMines AndAlso item.Mine AndAlso item.Flag = False Then
                                                 Console.Write("*")
                                             End If
 
@@ -76,7 +76,7 @@ Module Program
                 message = "Invalid x pos"
             ElseIf y < 0 Or y > SquareMap(x).Length - 1 Then
                 message = "Invalid y pos"
-            ElseIf SquareMap(x)(y).Mine And flag = False Then
+            ElseIf SquareMap(x)(y).Mine AndAlso flag = False Then
                 _showMines = True
                 DrawMap(SquareMap)
                 Console.WriteLine("Game Over! Mine")

@@ -2,7 +2,7 @@
 
 Public Class Form1
 
-    Private ShowMines As Boolean = False
+    Private ShowMines As Boolean = True
     Private Const _SizeOfSquareLabel As Integer = 35
     Private Const _MapSize As Integer = 9
     Private Const _NumberOfMines As Integer = 20

@@ -54,7 +54,7 @@
                                                       Return b
                                                   End Function)
                               End Function).Where(Function(e)
-                                                      Return (e.Mine = True And e.Flag = False) Or (e.Mine = False And e.Flag = True)
+                                                      Return (e.Mine = True AndAlso e.Flag = False) Or (e.Mine = False AndAlso e.Flag = True)
                                                   End Function).Any() = False
 
     End Function
