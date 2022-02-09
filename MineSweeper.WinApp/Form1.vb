@@ -33,7 +33,7 @@ Public Class Form1
                                             }
                                              _labels.Add(labelsq)
                                              Me.Controls.Add(labelsq)
-                                             AddHandler labelsq.MouseClick, AddressOf SqaureLabelClick
+                                             AddHandler labelsq.MouseClick, AddressOf SquareLabelClick
                                              Return False
                                          End Function)
 
@@ -53,7 +53,7 @@ Public Class Form1
         Next
     End Sub
 
-    Private Sub SqaureLabelClick(sender As Object, e As MouseEventArgs)
+    Private Sub SquareLabelClick(sender As Object, e As MouseEventArgs)
 
         Dim label As SquareLabel = sender
         Select Case e.Button
