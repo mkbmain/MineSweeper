@@ -3,10 +3,10 @@ Imports MineSweeper.Core
 
 Module Program
     Private _showMines As Boolean = False
-    Private Const _NumberOfMines As Integer = 20
-    Private Const _MapSize As Integer = 9
+    Private Const NumberOfMines As Integer = 20
+    Private Const MapSize As Integer = 9
     Private ReadOnly Alphabet As List(Of Char) = "abcdefghijklmnopqrstuvwxyz".ToCharArray().ToList()
-    Private ReadOnly SquareMap As Square()() = GenerateMap(_MapSize, _MapSize)
+    Private ReadOnly SquareMap As Square()() = GenerateMap(MapSize, MapSize)
 
 
 
@@ -15,13 +15,13 @@ Module Program
 
     Sub DrawMap(map As Square()())
         Console.Clear()
-        Enumerable.Range(0, _MapSize).Select(Function(e)
-                                                 Console.SetCursorPosition(e + 1, 0)
-                                                 Console.Write(e)
-                                                 Console.SetCursorPosition(0, e + 1)
-                                                 Console.Write(Alphabet(e))
-                                                 Return True
-                                             End Function).ToArray()
+        Enumerable.Range(0, MapSize).Select(Function(e)
+                                                Console.SetCursorPosition(e + 1, 0)
+                                                Console.Write(e)
+                                                Console.SetCursorPosition(0, e + 1)
+                                                Console.Write(Alphabet(e))
+                                                Return True
+                                            End Function).ToArray()
         map.IterateThroughArrayOfArrays(Function(item, x, y)
                                             Console.SetCursorPosition(x + 1, y + 1)
 
@@ -49,7 +49,7 @@ Module Program
 
 
     Sub Main(args As String())
-        PlaceMines(SquareMap, _NumberOfMines)
+        PlaceMines(SquareMap, NumberOfMines)
         Dim message As String = ""
         While True
             DrawMap(SquareMap)
