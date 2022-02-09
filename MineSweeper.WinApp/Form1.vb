@@ -69,10 +69,8 @@ Public Class Form1
                     label.Text = label.Square.Around
 
                     If label.Square.Around = 0 Then
-                        For Each label In _labels
-                            If label.Square.Around IsNot Nothing Then
-                                label.Text = label.Square.Around
-                            End If
+                        For Each label In From label1 In _labels Where label1.Square.Around IsNot Nothing
+                            label.Text = label.Square.Around
                         Next
                     End If
                 End If
@@ -95,10 +93,10 @@ Public Class Form1
         End If
     End Sub
 
-    Private Function GetValueInRange(ByVal text As String, ByVal min As Integer, ByVal max As Integer) As Integer
-        Dim input As Integer = GetValue(Of Integer)(text, Me.Text)
+    Private Function GetValueInRange(ByVal caption As String, ByVal min As Integer, ByVal max As Integer) As Integer
+        Dim input As Integer = GetValue(Of Integer)(caption, Me.Text)
         If input < min Or input > max Then
-            Return GetValueInRange(text, min, max)
+            Return GetValueInRange(caption, min, max)
         End If
         Return input
     End Function
