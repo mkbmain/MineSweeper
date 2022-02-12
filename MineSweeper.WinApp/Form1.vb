@@ -1,8 +1,7 @@
 ﻿Imports MineSweeper.Core
 
 Public Class Form1
-
-    Private ShowMines As Boolean = False
+    Private Const ShowMines As Boolean = False
     Private Const SizeOfSquareLabel As Integer = 25
     Private _mapSize As Integer = 25
     Private _numberOfMines As Integer = 20

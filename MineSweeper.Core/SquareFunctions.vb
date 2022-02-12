@@ -3,17 +3,11 @@
     Private Random As Random = New Random(Guid.NewGuid().GetHashCode())
 
     Public Function GenerateMap(xSize As Integer, ySize As Integer) As Square()()
-        Return Enumerable.Range(0, xSize).Select(Function(x)
-                                                     Return Enumerable.Range(0, ySize).Select(Function(y)
-                                                                                                  Return New Square(False)
-                                                                                              End Function).ToArray()
-                                                 End Function).ToArray()
+        Return Enumerable.Range(0, xSize).Select(Function(x) Enumerable.Range(0, ySize).Select(Function(y) New Square(False)).ToArray()).ToArray()
     End Function
 
     Public Sub PlaceMines(ByVal map As Square()(), numberOfMines As Integer)
-        Dim total As Integer = map.Select(Function(t)
-                                              Return t.Length
-                                          End Function).Sum()
+        Dim total As Integer = map.Select(Function(t) t.Length).Sum()
 
         If numberOfMines > total Then
             Throw New ArgumentException("Can not place more mines than spaces there are")
@@ -49,38 +43,27 @@
 
     Public Function WonGame(map As Square()()) As Boolean
 
-        Return map.SelectMany(Function(e)
-                                  Return e.Select(Function(b)
-                                                      Return b
-                                                  End Function)
-                              End Function).Where(Function(e)
-                                                      Return (e.Mine = True AndAlso e.Flag = False) Or (e.Mine = False AndAlso e.Flag = True)
-                                                  End Function).Any() = False
+        Return map.SelectMany(Function(e) e.Select(Function(b) b)).Any(
+            Function(e) (e.Mine = True AndAlso e.Flag = False) Or (e.Mine = False AndAlso e.Flag = True)) = False
 
     End Function
-    Public Sub CountMineForSquare(map As Square()(), x As Integer, y As Integer)
+    Public Sub CountMineForSquare(map As Square()(), x As Integer, y As Integer, Optional selectedManually As Boolean = True)
 
-        If map(x)(y).Around IsNot Nothing Then
+        Dim square As Square = map(x)(y)
+        If square.Around IsNot Nothing Or (selectedManually = False AndAlso square.Flag) Then
             ' we have already solved this
             Return
         End If
 
+
         Dim mines As Integer = 0
-        IterateThroughNeighbourMapSquares(map, x, y, Sub(xpos, ypos)
-                                                         If map(xpos)(ypos).Mine Then
-                                                             mines += 1
-                                                         End If
-                                                     End Sub)
+        IterateThroughNeighbourMapSquares(map, x, y, Sub(xpos, ypos) If map(xpos)(ypos).Mine Then mines += 1)
 
-        map(x)(y).Flag = False
-        map(x)(y).Around = mines
+        square.Flag = False
+        square.Around = mines
         If mines = 0 Then
-            IterateThroughNeighbourMapSquares(map, x, y, Sub(xpos, ypos)
-                                                             CountMineForSquare(map, xpos, ypos)
-                                                         End Sub)
+            IterateThroughNeighbourMapSquares(map, x, y, Sub(xpos, ypos) CountMineForSquare(map, xpos, ypos, False))
         End If
-
-
     End Sub
 
 
